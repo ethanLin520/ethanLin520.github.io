@@ -3,7 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ethan Lin | Resume</title>
+<title>Ethan Lin | AI Engineer · CS @ UChicago</title>
+
+<!-- SEO -->
+<meta name="description" content="Ethan Lin — AI Engineer at BCG X and MS Computer Science at UChicago. Work in GenAI deployment, AI infrastructure, parallel computing, GPU programming, and algorithms." />
+<meta name="author" content="Ethan Lin" />
+<link rel="canonical" href="https://ethan-lin.me/" />
+<meta name="theme-color" content="#000000" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Ethan Lin | AI Engineer · CS @ UChicago" />
+<meta property="og:description" content="AI Engineer at BCG X and MS Computer Science at UChicago. GenAI deployment, AI infrastructure, parallel computing, GPU programming, and algorithms." />
+<meta property="og:url" content="https://ethan-lin.me/" />
+<meta property="og:image" content="https://ethan-lin.me/og-image.png" />
+<meta property="og:site_name" content="Ethan Lin" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ethan Lin | AI Engineer · CS @ UChicago" />
+<meta name="twitter:description" content="AI Engineer at BCG X and MS Computer Science at UChicago. GenAI deployment, AI infrastructure, parallel computing, GPU programming, and algorithms." />
+<meta name="twitter:image" content="https://ethan-lin.me/og-image.png" />
+
+<!-- Icons -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" href="apple-touch-icon.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,10 +56,59 @@
   --divider-soft:   rgba(0,0,0,0.04);
   --hairline:       #e0e0e0;
 
+  --rail-pill:        rgba(255,255,255,0.55);
+  --rail-pill-border: rgba(0,0,0,0.07);
+
   --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
   --font-text:    "SF Pro Text", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
 
   --content-max: 1080px;
+}
+
+/* ---- Dark theme tokens ---- */
+:root[data-theme="dark"],
+:root.theme-dark {
+  --primary:        #9aa0a6;
+  --primary-focus:  #c7cace;
+  --primary-on-dark:#d1d5db;
+
+  --ink:            #f5f5f7;
+  --ink-muted-80:   #c7c7cc;
+  --ink-muted-48:   #8e8e93;
+
+  --canvas:         #000000;
+  --canvas-parchment:#161617;
+  --surface-pearl:  #1c1c1e;
+  --surface-black:  #161617;
+
+  --divider-soft:   rgba(255,255,255,0.06);
+  --hairline:       #2a2a2c;
+
+  --rail-pill:        rgba(28,28,30,0.5);
+  --rail-pill-border: rgba(255,255,255,0.12);
+}
+/* follow the OS setting when the user hasn't chosen explicitly */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary:        #9aa0a6;
+    --primary-focus:  #c7cace;
+    --primary-on-dark:#d1d5db;
+
+    --ink:            #f5f5f7;
+    --ink-muted-80:   #c7c7cc;
+    --ink-muted-48:   #8e8e93;
+
+    --canvas:         #000000;
+    --canvas-parchment:#161617;
+    --surface-pearl:  #1c1c1e;
+    --surface-black:  #161617;
+
+    --divider-soft:   rgba(255,255,255,0.06);
+    --hairline:       #2a2a2c;
+
+    --rail-pill:        rgba(28,28,30,0.5);
+    --rail-pill-border: rgba(255,255,255,0.12);
+  }
 }
 
 /* ============================================================
@@ -42,6 +116,7 @@
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-text);
   font-size: 17px;
@@ -52,6 +127,7 @@ body {
   background: var(--canvas);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -112,43 +188,40 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 }
 .btn-dark-utility:hover { text-decoration: none; }
 .btn-dark-utility:active { transform: scale(0.95); }
+/* keep the GitHub button readable on the dark nav in dark mode */
+:root[data-theme="dark"] .btn-dark-utility {
+  background: rgba(255,255,255,0.14);
+  color: var(--body-on-dark);
+}
+:root[data-theme="dark"] .btn-dark-utility:hover { background: rgba(255,255,255,0.22); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn-dark-utility {
+    background: rgba(255,255,255,0.14);
+    color: var(--body-on-dark);
+  }
+  :root:not([data-theme="light"]) .btn-dark-utility:hover { background: rgba(255,255,255,0.22); }
+}
 
-/* ============================================================
-   SUB-NAV (frosted parchment, sticky)
-   ============================================================ */
-.sub-nav {
-  background: rgba(245, 245, 247, 0.80);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  height: 52px;
-  position: sticky; top: 44px; z-index: 99;
-  border-bottom: 1px solid var(--divider-soft);
+/* theme toggle */
+.global-nav-right { display: flex; align-items: center; gap: 14px; }
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 9999px;
+  color: var(--body-on-dark);
+  opacity: 0.88;
+  transition: opacity 0.16s ease, background 0.16s ease;
 }
-.sub-nav-inner {
-  max-width: 1024px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 22px;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 24px;
+.theme-toggle:hover { opacity: 1; background: rgba(255,255,255,0.12); }
+.theme-toggle:focus-visible { outline: 2px solid var(--primary-on-dark); outline-offset: 2px; }
+.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
 }
-.sub-nav-title {
-  font-family: var(--font-display);
-  font-size: 21px; font-weight: 600;
-  line-height: 1.19; letter-spacing: 0.231px;
-  color: var(--ink);
-}
-.sub-nav-right { display: flex; align-items: center; gap: 24px; }
-.sub-nav-links {
-  display: flex; gap: 22px;
-  list-style: none; margin: 0; padding: 0;
-}
-.sub-nav-links a {
-  font-size: 14px; font-weight: 400;
-  line-height: 1.29; letter-spacing: -0.224px;
-  color: var(--ink);
-}
-.sub-nav-links a:hover { color: var(--primary); text-decoration: none; }
 
 /* ============================================================
    BUTTONS
@@ -191,6 +264,7 @@ main { background: var(--canvas); }
 .section {
   padding: 72px 0;
   border-bottom: 1px solid var(--hairline);
+  scroll-margin-top: 64px;
 }
 .section:last-of-type { border-bottom: 0; }
 
@@ -232,12 +306,61 @@ main { background: var(--canvas); }
 }
 .section-head .head-link::after { content: " ›"; }
 
+.entry-toggle-wrap {
+  width: 100%;
+  margin-top: 36px;
+  text-align: center;
+}
+.entry-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px 12px 22px;
+  background: var(--canvas-parchment);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 17px; font-weight: 600;
+  letter-spacing: -0.374px;
+  color: var(--ink);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.entry-toggle:hover { background: var(--hairline); }
+.entry-toggle:active { transform: scale(0.97); }
+.entry-toggle:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 3px; }
+.entry-toggle .entry-toggle-icon {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ink);
+  transition: transform 0.25s ease;
+}
+/* the plus, built from two centered bars so it sits dead-center */
+.entry-toggle .entry-toggle-icon::before,
+.entry-toggle .entry-toggle-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--canvas);
+  transform: translate(-50%, -50%);
+}
+.entry-toggle .entry-toggle-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+.entry-toggle[aria-expanded="true"] .entry-toggle-icon { transform: rotate(45deg); }
+
 /* ============================================================
    HERO - left-aligned, integrated into the flow
    ============================================================ */
 .hero {
   padding: 88px 0 64px;
   border-bottom: 1px solid var(--hairline);
+  scroll-margin-top: 64px;
 }
 .hero-eyebrow {
   font-family: var(--font-text);
@@ -270,6 +393,21 @@ main { background: var(--canvas); }
 }
 .hero-tagline em { font-style: normal; color: var(--ink); font-weight: 600; }
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-interests {
+  font-size: 16px; font-weight: 400;
+  line-height: 1.5; letter-spacing: -0.224px;
+  color: var(--ink-muted-80);
+  max-width: 860px;
+  margin: 28px 0 0;
+}
+.hero-interests-label {
+  display: inline-block;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-right: 12px;
+}
 
 /* ============================================================
    ABOUT - short flowing paragraph
@@ -355,7 +493,11 @@ main { background: var(--canvas); }
   padding: 36px 0;
   border-top: 1px solid var(--hairline);
 }
-.entry:last-child { border-bottom: 1px solid var(--hairline); }
+/* Closing hairline under the last visible entry in both collapsed and expanded
+   states. .entry-list gets .entries-expanded from the Show more/less button —
+   more robust than the old :has() + :nth-last-child() sibling counting. */
+.entry-list:not(.entries-expanded) > .entry:last-of-type { border-bottom: 1px solid var(--hairline); }
+.entry-list.entries-expanded .entry-more > .entry:last-child { border-bottom: 1px solid var(--hairline); }
 
 .entry-side {
   font-size: 14px; font-weight: 400;
@@ -532,7 +674,9 @@ main { background: var(--canvas); }
   .entry-tag { text-align: left; }
 }
 @media (max-width: 833px) {
-  .global-nav-links, .sub-nav-links { display: none; }
+  /* hide the section names in the top bar on mobile */
+  .global-nav-inner { gap: 14px; }
+  .global-nav-links { display: none; }
   .section { padding: 56px 0; }
   .hero { padding: 56px 0 44px; }
   .hero-name { font-size: 40px; letter-spacing: -0.3px; }
@@ -558,6 +702,152 @@ main { background: var(--canvas); }
 }
 
 /* ============================================================
+   SIDE TIMELINE - fixed TOC + scroll progress
+   ============================================================ */
+.timeline-rail {
+  position: fixed;
+  right: 24px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  padding: 4px 0;
+}
+.timeline-list {
+  list-style: none; margin: 0; padding: 0;
+  position: relative;
+}
+/* the track line behind the dots (dots sit on the right edge of the rail) */
+.timeline-list::before {
+  content: "";
+  position: absolute;
+  right: 8px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: var(--hairline);
+}
+/* the progress fill, height driven by JS */
+.timeline-fill {
+  position: absolute;
+  right: 8px; top: 8px;
+  width: 2px;
+  height: 0;
+  background: var(--primary);
+  transition: height 0.12s linear;
+}
+.timeline-item { position: relative; }
+.timeline-link {
+  display: flex; align-items: center; gap: 18px;
+  /* row-reverse puts the dot on the right edge (on the track); default
+     justify-content (flex-start) keeps it flush there across all rows. */
+  flex-direction: row-reverse;
+  padding: 14px 0;
+  color: inherit;
+  position: relative;
+}
+.timeline-link:hover { text-decoration: none; }
+.timeline-dot {
+  flex: 0 0 auto;
+  width: 18px; height: 18px;
+  border-radius: 9999px;
+  background: var(--canvas);
+  border: 2px solid var(--hairline);
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  z-index: 1;
+}
+.timeline-label {
+  font-family: var(--font-text);
+  font-size: 16px; font-weight: 500;
+  letter-spacing: -0.2px;
+  color: var(--ink-muted-48);
+  white-space: nowrap;
+  opacity: 0.55;
+  /* frosted-glass pill behind each section name */
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: var(--rail-pill);
+  border: 1px solid var(--rail-pill-border);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: opacity 0.18s ease, color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  pointer-events: none;
+}
+/* completed sections: filled dot */
+.timeline-item.is-done .timeline-dot {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+/* active section: ring + visible label */
+.timeline-item.is-active .timeline-dot {
+  background: var(--canvas);
+  border-color: var(--primary);
+  transform: scale(1.45);
+}
+.timeline-item.is-active .timeline-label {
+  opacity: 1;
+  color: var(--ink);
+  font-weight: 600;
+}
+/* brighten labels on hover / keyboard focus */
+.timeline-link:hover .timeline-label,
+.timeline-link:focus-visible .timeline-label {
+  opacity: 1;
+  color: var(--ink);
+}
+.timeline-link:focus-visible {
+  outline: 2px solid var(--primary-focus);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* Phones: drop the rail entirely (the slim top progress bar takes over). */
+@media (max-width: 767.98px) {
+  .timeline-rail { display: none; }
+}
+
+/* Mid-width screens too narrow for the rail to sit beside the 1080px content:
+   keep the rail but let it auto-hide so it never overlaps. It slides in while
+   scrolling, stays while hovered or focused, then tucks away after a short idle.
+   Above this band (>=1400px) the gutter is wide enough to show the rail always. */
+@media (min-width: 768px) and (max-width: 1399.98px) {
+  .timeline-rail.rail-autohide {
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+  }
+  .timeline-rail.rail-autohide.rail-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50%) translateX(20px);
+    pointer-events: none;
+  }
+}
+
+/* thin scroll-progress bar shown whenever the always-on rail isn't present
+   (phones + the auto-hide band) so there's always an at-rest progress cue */
+.scroll-progress {
+  display: none;
+  position: fixed;
+  top: 44px; left: 0; right: 0;
+  height: 3px;
+  background: var(--divider-soft);
+  z-index: 98;
+}
+.scroll-progress-fill {
+  display: block;
+  height: 100%; width: 0;
+  background: var(--primary);
+}
+@media (max-width: 1399.98px) {
+  .scroll-progress { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress-fill { transition: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .timeline-fill, .timeline-dot, .timeline-label,
+  .timeline-rail.rail-autohide,
+  .entry-toggle, .entry-toggle-icon { transition: none; }
+}
+
+/* ============================================================
    LOAD-IN
    ============================================================ */
 @keyframes appleFadeUp {
@@ -569,9 +859,46 @@ main { background: var(--canvas); }
 .fade.d2 { animation-delay: 0.16s; }
 .fade.d3 { animation-delay: 0.28s; }
 </style>
+<script>
+  // Apply saved theme before paint to avoid a flash of the wrong mode.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
 </head>
 
 <body>
+
+<!-- ===================== TOP SCROLL PROGRESS (small screens) ===================== -->
+<div class="scroll-progress" aria-hidden="true"><span class="scroll-progress-fill"></span></div>
+
+<!-- ===================== SIDE TIMELINE ===================== -->
+<nav class="timeline-rail" aria-label="Section progress">
+  <ul class="timeline-list">
+    <span class="timeline-fill" aria-hidden="true"></span>
+    <li class="timeline-item" data-section="about">
+      <a class="timeline-link" href="#about"><span class="timeline-dot" aria-hidden="true"></span><span class="timeline-label">Intro</span></a>
+    </li>
+    <li class="timeline-item" data-section="education">
+      <a class="timeline-link" href="#education"><span class="timeline-dot" aria-hidden="true"></span><span class="timeline-label">Education</span></a>
+    </li>
+    <li class="timeline-item" data-section="experience">
+      <a class="timeline-link" href="#experience"><span class="timeline-dot" aria-hidden="true"></span><span class="timeline-label">Experience</span></a>
+    </li>
+    <li class="timeline-item" data-section="projects">
+      <a class="timeline-link" href="#projects"><span class="timeline-dot" aria-hidden="true"></span><span class="timeline-label">Projects</span></a>
+    </li>
+    <li class="timeline-item" data-section="skills">
+      <a class="timeline-link" href="#skills"><span class="timeline-dot" aria-hidden="true"></span><span class="timeline-label">Skills</span></a>
+    </li>
+    <li class="timeline-item" data-section="contact">
+      <a class="timeline-link" href="#contact"><span class="timeline-dot" aria-hidden="true"></span><span class="timeline-label">Contact</span></a>
+    </li>
+  </ul>
+</nav>
 
 <!-- ===================== GLOBAL NAV ===================== -->
 <nav class="global-nav" aria-label="Global">
@@ -585,25 +912,15 @@ main { background: var(--canvas); }
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="btn-dark-utility" href="https://github.com/ethanLin520" target="_blank" rel="noopener">GitHub</a>
-  </div>
-</nav>
-
-<!-- ===================== SUB-NAV ===================== -->
-<div class="sub-nav">
-  <div class="sub-nav-inner">
-    <div class="sub-nav-title">Ethan Lin</div>
-    <div class="sub-nav-right">
-      <ul class="sub-nav-links">
-        <li><a href="#education">Education</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-      </ul>
-      <a class="btn-primary" href="#contact">Contact</a>
+    <div class="global-nav-right">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+      <a class="btn-dark-utility" href="#contact">Contact</a>
     </div>
   </div>
-</div>
+</nav>
 
 <main>
 
@@ -613,13 +930,19 @@ main { background: var(--canvas); }
     <p class="hero-eyebrow fade">Resume · 2026</p>
     <h1 class="hero-name fade d1">Ethan Lin</h1>
     <p class="hero-tagline fade d2">
-      CS @ UChicago, AI Engineer @ BCG X
+      AI Engineer @ BCG X | CS @ UChicago
     </p>
     <div class="hero-cta fade d3">
-      <a class="btn-primary" href="#experience">Experience</a>
+      <a class="btn-secondary-pill" href="#experience">Experience</a>
       <a class="btn-secondary-pill" href="#projects">Projects</a>
       <a class="btn-secondary-pill" href="mailto:ethan.lin.business@gmail.com">Email</a>
+      <a class="btn-secondary-pill" href="https://www.linkedin.com/in/hi-ethan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn-secondary-pill" href="https://github.com/ethanLin520" target="_blank" rel="noopener">GitHub</a>
     </div>
+    <p class="hero-interests fade d3">
+      <span class="hero-interests-label">Interests</span>
+      GenAI Deployment · AI Infrastructure · Parallel Computing · GPU Programming · Algorithms
+    </p>
   </div>
 </section>
 
@@ -636,7 +959,7 @@ main { background: var(--canvas); }
       <div class="edu-entry">
         <div class="edu-dates">Sep 2025 &ndash; Dec 2026</div>
         <div>
-          <h3 class="edu-school">The University of Chicago<span class="uc-gpa">GPA 4.0 / 4.0</span></h3>
+          <h3 class="edu-school">University of Chicago<span class="uc-gpa">GPA 3.92 / 4.0</span></h3>
           <p class="edu-degree">Master of Science, Computer Science</p>
           <p class="edu-courses">Algorithms · Functional Programming · Distributed Systems · Parallel Programming · GPU Programming · Advanced C++</p>
         </div>
@@ -646,9 +969,9 @@ main { background: var(--canvas); }
       <div class="edu-entry">
         <div class="edu-dates">Jan 2021 &ndash; Dec 2024</div>
         <div>
-          <h3 class="edu-school">University of New South Wales</h3>
-          <p class="edu-degree">B.Sc., Computer Science · B.Comm., Business Analytics</p>
-          <p class="edu-courses">Coursework in computer systems, data structures, algorithms, analytics, and statistical modeling.</p>
+          <h3 class="edu-school">University of New South Wales<span class="uc-gpa">GPA 82 / 100</span></h3>
+          <p class="edu-degree">Bachelor of Science, Computer Science<br>Bachelor of Commerce, Business Analytics</p>
+          <p class="edu-courses">Computer Systems · Data Structures · Algorithms · Operating Systems · Analytics · Statistical Modeling</p>
         </div>
         <div class="edu-loc">Sydney, Australia</div>
       </div>
@@ -669,6 +992,24 @@ main { background: var(--canvas); }
 
       <article class="entry">
         <aside class="entry-side">
+          <span class="when">Jun 2026 &ndash; Aug 2026</span>
+          Internship · On-site<br>Chicago, IL
+        </aside>
+        <div class="entry-main">
+          <h3 class="entry-role">Forward Deployed AI Engineer</h3>
+          <p class="entry-org">BCG X</p>
+          <ul class="entry-bullets">
+            <li>Building GenAI solutions on retail media data, working directly with client teams to ship deployed systems.</li>
+          </ul>
+        </div>
+        <div class="entry-tags">
+          <span class="entry-tag">GenAI · Retail Media</span>
+          <a class="entry-link" href="https://www.linkedin.com/company/bcg-x/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </article>
+
+      <article class="entry">
+        <aside class="entry-side">
           <span class="when">Dec 2025 &ndash; May 2026</span>
           Part-time<br>Chicago, IL
         </aside>
@@ -676,8 +1017,8 @@ main { background: var(--canvas); }
           <h3 class="entry-role">Course Assistant</h3>
           <p class="entry-org">University of Chicago, Department of Computer Science</p>
           <ul class="entry-bullets">
-            <li>Designed programming assignments for algorithms topics including randomization, dynamic programming, graph algorithms, min-cost max-flow, Bellman-Ford SPFA, and vertex cover.</li>
-            <li>Built Python test suites and GitHub CI/CD workflows to support automated grading and validation.</li>
+            <li>Designed programming assignments for a course of <strong>100+ students</strong>, covering algorithms topics including randomization, dynamic programming, graph algorithms, min-cost max-flow, Bellman-Ford SPFA, and vertex cover.</li>
+            <li>Built Python test suites and GitHub CI/CD workflows that automated grading and validation, removing manual checks from the weekly assignment cycle.</li>
           </ul>
         </div>
         <div class="entry-tags">
@@ -695,8 +1036,8 @@ main { background: var(--canvas); }
           <h3 class="entry-role">Library Student Assistant</h3>
           <p class="entry-org">University of Chicago</p>
           <ul class="entry-bullets">
-            <li>Built an LLM-assisted pipeline using structured-output prompting to convert images into standardized metadata.</li>
-            <li>Developed Playwright automation tools to reduce manual steps in cataloging workflows.</li>
+            <li>Built an LLM-assisted pipeline using structured-output prompting to convert images into standardized catalog metadata, replacing manual data entry in the cataloging workflow.</li>
+            <li>Developed Playwright automation tools that eliminated repetitive manual steps from cataloging workflows.</li>
           </ul>
         </div>
         <div class="entry-tags">
@@ -722,8 +1063,11 @@ main { background: var(--canvas); }
         </div>
         <div class="entry-tags">
           <span class="entry-tag">SQL · C# · Testing</span>
+          <a class="entry-link" href="https://www.linkedin.com/company/wearecircana/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </article>
+
+      <div class="entry-more" id="experienceMore" hidden>
 
       <article class="entry">
         <aside class="entry-side">
@@ -743,6 +1087,12 @@ main { background: var(--canvas); }
         </div>
       </article>
 
+      </div>
+
+      <div class="entry-toggle-wrap">
+        <button type="button" class="entry-toggle" id="experienceToggle" aria-expanded="false" aria-controls="experienceMore"><span class="entry-toggle-label">Show more</span><span class="entry-toggle-icon" aria-hidden="true"></span></button>
+      </div>
+
     </div>
   </div>
 </section>
@@ -759,17 +1109,36 @@ main { background: var(--canvas); }
 
       <article class="entry">
         <aside class="entry-side">
-          <span class="when">2026</span>
-          Personal project
+          <span class="when">Mar 2026 &ndash; May 2026</span>
+          UChicago
+        </aside>
+        <div class="entry-main">
+          <h3 class="entry-role">CUDA Image Search Engine</h3>
+          <p class="entry-org">CUDA · CLIP · Embeddings · GPU Programming</p>
+          <ul class="entry-bullets">
+            <li>Built a CUDA-accelerated image similarity search engine using CLIP embeddings and custom GPU kernels for cosine similarity search over <strong>~7,400 images</strong>.</li>
+            <li>Designed a multi-stream CUDA pipeline to overlap memory transfers, kernel execution, and result write-back across batches.</li>
+            <li>Profiled and tuned kernel/batch parameters, achieving <strong>~200&times; speedup</strong> over a CPU baseline with reproducible benchmarking scripts.</li>
+          </ul>
+        </div>
+        <div class="entry-tags">
+          <span class="entry-tag">CUDA · CLIP</span>
+          <a class="entry-link" href="https://github.com/ethanLin520/cuda-image-search-engine" target="_blank" rel="noopener">Repo</a>
+        </div>
+      </article>
+
+      <article class="entry">
+        <aside class="entry-side">
+          <span class="when">Jan 2026 &ndash; Mar 2026</span>
+          UChicago
         </aside>
         <div class="entry-main">
           <h3 class="entry-role">Matrix Engine</h3>
-          <p class="entry-org">C++20 · CMake · Parallel Computing</p>
+          <p class="entry-org">C++20 · Template · Parallel Computing</p>
           <ul class="entry-bullets">
-            <li>Built a C++20 matrix computation library with sequential and parallel execution modes.</li>
-            <li>Implemented a compile-time dimensioned <code>Matrix&lt;T, rows, cols&gt;</code> type with move-only semantics backed by <code>std::unique_ptr</code>.</li>
-            <li>Designed executor abstractions with lock-based and lock-free implementations using futures, atomics, and task queues.</li>
-            <li>Implemented parallel add, multiply, and determinant operations with benchmark scripts for performance testing.</li>
+            <li>Applied C++ template programming to build a type-safe matrix computation library with compile-time dimensions and move-only ownership semantics.</li>
+            <li>Designed sequential and parallel execution modes using lock-based/lock-free executors, futures, atomics, and task queues.</li>
+            <li>Implemented and benchmarked parallel add, multiply, and determinant operations, achieving <strong>~3&times; speedup</strong> over a sequential baseline.</li>
           </ul>
         </div>
         <div class="entry-tags">
@@ -785,12 +1154,11 @@ main { background: var(--canvas); }
         </aside>
         <div class="entry-main">
           <h3 class="entry-role">Parallel K-means Clustering</h3>
-          <p class="entry-org">Go · BSP · Slurm / HPC</p>
+          <p class="entry-org">Go · BSP · MapReduce · Slurm</p>
           <ul class="entry-bullets">
-            <li>Implemented K-means in Go with a sequential baseline and a BSP-style parallel version using map, barrier, and reduce phases.</li>
-            <li>Reduced end-to-end runtime by <strong>40%</strong> through parallel point assignment and per-worker local reductions.</li>
-            <li>Designed a lock-free work-stealing dequeue in Go to balance uneven workloads across worker threads.</li>
-            <li>Benchmarked on UChicago's HPC cluster using Slurm batch scripts across thread counts and dataset sizes.</li>
+            <li>Implemented K-means in Go with sequential/BSP/MapReduce execution models.</li>
+            <li>Optimized parallel point assignment, per-worker local reductions, and lock-free work stealing, reducing end-to-end runtime by <strong>40%</strong>.</li>
+            <li>Automated Slurm-based HPC benchmarking with Bash scripts across thread counts, dataset sizes, and execution modes.</li>
           </ul>
         </div>
         <div class="entry-tags">
@@ -810,13 +1178,15 @@ main { background: var(--canvas); }
           <ul class="entry-bullets">
             <li>Built a Function-as-a-Service platform supporting <strong>500+ concurrent requests</strong>.</li>
             <li>Scaled execution throughput to <strong>~1,000 functions/sec</strong> using multiprocessing workers.</li>
-            <li>Used Redis for low-latency state, caching, and coordination to improve data access and fault tolerance.</li>
+            <li>Integrated Redis for low-latency state, caching, and coordination to improve data access and fault tolerance.</li>
           </ul>
         </div>
         <div class="entry-tags">
           <span class="entry-tag">Distributed Systems</span>
         </div>
       </article>
+
+      <div class="entry-more" id="projectsMore" hidden>
 
       <article class="entry">
         <aside class="entry-side">
@@ -829,7 +1199,7 @@ main { background: var(--canvas); }
           <ul class="entry-bullets">
             <li>Developed a C++ static-analysis detector for the open-source SVF framework.</li>
             <li>Used interprocedural control-flow analysis and abstract execution to identify vulnerability patterns.</li>
-            <li>Authored <strong>100+ C and LLVM IR test cases</strong> to benchmark correctness and performance.</li>
+            <li>Wrote <strong>100+ C and LLVM IR test cases</strong> to benchmark correctness and performance.</li>
           </ul>
         </div>
         <div class="entry-tags">
@@ -857,6 +1227,12 @@ main { background: var(--canvas); }
         </div>
       </article>
 
+      </div>
+
+      <div class="entry-toggle-wrap">
+        <button type="button" class="entry-toggle" id="projectsToggle" aria-expanded="false" aria-controls="projectsMore"><span class="entry-toggle-label">Show more</span><span class="entry-toggle-icon" aria-hidden="true"></span></button>
+      </div>
+
     </div>
   </div>
 </section>
@@ -875,14 +1251,14 @@ main { background: var(--canvas); }
         <div class="col-eyebrow">i · Languages</div>
         <h3>Languages</h3>
         <ul class="skill-list">
-          <li>Python <span class="arrow">›</span></li>
-          <li>C / C++ <span class="arrow">›</span></li>
-          <li>CUDA <span class="arrow">›</span></li>
-          <li>Java <span class="arrow">›</span></li>
-          <li>C# <span class="arrow">›</span></li>
-          <li>SQL <span class="arrow">›</span></li>
-          <li>Haskell <span class="arrow">›</span></li>
-          <li>Bash <span class="arrow">›</span></li>
+          <li>Python</li>
+          <li>C / C++</li>
+          <li>CUDA</li>
+          <li>Java</li>
+          <li>C#</li>
+          <li>SQL</li>
+          <li>Haskell</li>
+          <li>Bash</li>
         </ul>
       </div>
 
@@ -890,13 +1266,13 @@ main { background: var(--canvas); }
         <div class="col-eyebrow">ii · Frameworks</div>
         <h3>Frameworks</h3>
         <ul class="skill-list">
-          <li>Flask <span class="arrow">›</span></li>
-          <li>React <span class="arrow">›</span></li>
-          <li>PostgreSQL <span class="arrow">›</span></li>
-          <li>Redis <span class="arrow">›</span></li>
-          <li>Docker <span class="arrow">›</span></li>
-          <li>AWS <span class="arrow">›</span></li>
-          <li>ZeroMQ <span class="arrow">›</span></li>
+          <li>Flask</li>
+          <li>React</li>
+          <li>PostgreSQL</li>
+          <li>Redis</li>
+          <li>Docker</li>
+          <li>AWS</li>
+          <li>ZeroMQ</li>
         </ul>
       </div>
 
@@ -904,17 +1280,17 @@ main { background: var(--canvas); }
         <div class="col-eyebrow">iii · Data &amp; Tools</div>
         <h3>Data &amp; Tools</h3>
         <ul class="skill-list">
-          <li>pandas <span class="arrow">›</span></li>
-          <li>NumPy <span class="arrow">›</span></li>
-          <li>Scikit-learn <span class="arrow">›</span></li>
-          <li>TensorFlow <span class="arrow">›</span></li>
-          <li>GPU Programming <span class="arrow">›</span></li>
-          <li>Nsight Compute / Systems <span class="arrow">›</span></li>
-          <li>Linux <span class="arrow">›</span></li>
-          <li>Git <span class="arrow">›</span></li>
-          <li>pytest <span class="arrow">›</span></li>
-          <li>Power BI <span class="arrow">›</span></li>
-          <li>Jira <span class="arrow">›</span></li>
+          <li>pandas</li>
+          <li>NumPy</li>
+          <li>Scikit-learn</li>
+          <li>TensorFlow</li>
+          <li>GPU Programming</li>
+          <li>Nsight Compute / Systems</li>
+          <li>Linux</li>
+          <li>Git</li>
+          <li>pytest</li>
+          <li>Power BI</li>
+          <li>Jira</li>
         </ul>
       </div>
 
@@ -927,11 +1303,8 @@ main { background: var(--canvas); }
   <div class="container">
     <p class="section-eyebrow">05 · Contact</p>
     <h2 class="hero-name">Contact</h2>
-    <p class="contact-tagline">
-      Open to software engineering, AI engineering, backend systems, GPU programming, and data-focused roles.
-    </p>
     <div class="contact-row">
-      <a class="btn-primary" href="mailto:ethan.lin.business@gmail.com">Email me</a>
+      <a class="btn-secondary-pill" href="mailto:ethan.lin.business@gmail.com">Email me</a>
       <a class="btn-secondary-pill" href="https://www.linkedin.com/in/hi-ethan/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn-secondary-pill" href="https://github.com/ethanLin520" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -940,13 +1313,137 @@ main { background: var(--canvas); }
 
 </main>
 
+<!-- ===================== SIDE TIMELINE SCRIPT ===================== -->
+<script>
+// Dark-mode toggle: explicit choice persists; otherwise OS preference applies.
+(function () {
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var current = document.documentElement.getAttribute('data-theme') || (prefersDark ? 'dark' : 'light');
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+})();
+
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.timeline-item'));
+  var fill = document.querySelector('.timeline-fill');
+  var list = document.querySelector('.timeline-list');
+  if (!items.length) return;
+
+  var sections = items.map(function (item) {
+    return document.getElementById(item.getAttribute('data-section'));
+  });
+
+  // Highlight the section currently in view, and mark earlier ones as done.
+  function setActive(index) {
+    items.forEach(function (item, i) {
+      item.classList.toggle('is-active', i === index);
+      item.classList.toggle('is-done', i < index);
+    });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    // pick the entry nearest the top of the viewport that is intersecting
+    var best = null;
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && (!best || entry.boundingClientRect.top < best.boundingClientRect.top)) {
+        best = entry;
+      }
+    });
+    if (best) {
+      var idx = sections.indexOf(best.target);
+      if (idx !== -1) setActive(idx);
+    }
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+  sections.forEach(function (s) { if (s) observer.observe(s); });
+
+  // Auto-hide the rail when the viewport is too narrow for it to sit beside the
+  // content: reveal it while scrolling, keep it open while hovered or focused,
+  // then tuck it away after a short idle. (Hover/focus only pin it open once
+  // revealed — the hidden rail is non-interactive, so scroll is the reveal cue.)
+  var rail = document.querySelector('.timeline-rail');
+  var tabletMQ = window.matchMedia('(min-width: 768px) and (max-width: 1399.98px)');
+  var hideTimer = null;
+  // Track pointer and keyboard pins separately so releasing one doesn't cancel
+  // the other (e.g. the mouse leaving while a rail link is still focused).
+  var pointerPinned = false, focusPinned = false;
+
+  function hideRail() { if (rail) rail.classList.add('rail-hidden'); }
+  function scheduleHide() {
+    clearTimeout(hideTimer);
+    if (!pointerPinned && !focusPinned) hideTimer = setTimeout(hideRail, 1800);
+  }
+  function revealRail() {
+    if (!rail || !tabletMQ.matches) return;
+    rail.classList.remove('rail-hidden');
+    scheduleHide();
+  }
+  function applyRailMode() {
+    if (!rail) return;
+    clearTimeout(hideTimer);
+    if (tabletMQ.matches) {
+      rail.classList.add('rail-autohide', 'rail-hidden');
+    } else {
+      rail.classList.remove('rail-autohide', 'rail-hidden');
+    }
+  }
+  if (rail) {
+    var pin = function () { clearTimeout(hideTimer); if (tabletMQ.matches) rail.classList.remove('rail-hidden'); };
+    rail.addEventListener('pointerenter', function () { pointerPinned = true; pin(); });
+    rail.addEventListener('pointerleave', function () { pointerPinned = false; revealRail(); });
+    rail.addEventListener('focusin', function () { focusPinned = true; pin(); });
+    rail.addEventListener('focusout', function () { focusPinned = false; revealRail(); });
+    applyRailMode();
+    if (tabletMQ.addEventListener) tabletMQ.addEventListener('change', applyRailMode);
+    else if (tabletMQ.addListener) tabletMQ.addListener(applyRailMode);
+  }
+
+  // Scroll-progress fill across the full document.
+  var topFill = document.querySelector('.scroll-progress-fill');
+  var ticking = false;
+  function updateFill() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+    fill.style.height = (pct * (list.clientHeight - 16)) + 'px';
+    if (topFill) topFill.style.width = (pct * 100) + '%';
+    ticking = false;
+  }
+  function onScroll() {
+    // Throttle the reveal to one call per frame, and keep it off the load /
+    // resize path (those call updateFill directly, so the rail stays hidden).
+    if (!ticking) { ticking = true; revealRail(); requestAnimationFrame(updateFill); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', updateFill);
+  updateFill();
+})();
+
+(function () {
+  var toggles = document.querySelectorAll('.entry-toggle');
+  toggles.forEach(function (toggle) {
+    var more = document.getElementById(toggle.getAttribute('aria-controls'));
+    if (!more) return;
+    var label = toggle.querySelector('.entry-toggle-label');
+    var list = toggle.closest('.entry-list');
+    toggle.addEventListener('click', function () {
+      var expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      more.hidden = expanded;
+      if (label) label.textContent = expanded ? 'Show more' : 'Show less';
+      if (list) list.classList.toggle('entries-expanded', !expanded);
+    });
+  });
+})();
+</script>
+
 <!-- ===================== FOOTER ===================== -->
 <footer class="footer">
   <div class="footer-inner">
-    <p class="footer-legal-top">
-      Personal resume website. Last revised May 2026.
-    </p>
-
     <div class="footer-cols">
       <div class="footer-col">
         <h4>Education</h4>
@@ -958,6 +1455,7 @@ main { background: var(--canvas); }
       <div class="footer-col">
         <h4>Experience</h4>
         <ul>
+          <li><a href="#experience">BCG X</a></li>
           <li><a href="#experience">Course Assistant</a></li>
           <li><a href="#experience">Library Assistant</a></li>
           <li><a href="#experience">Circana</a></li>
@@ -967,6 +1465,7 @@ main { background: var(--canvas); }
       <div class="footer-col">
         <h4>Projects</h4>
         <ul>
+          <li><a href="#projects">CUDA Image Search</a></li>
           <li><a href="#projects">Matrix Engine</a></li>
           <li><a href="#projects">Parallel K-means</a></li>
           <li><a href="#projects">FaaS Platform</a></li>
